@@ -2,7 +2,7 @@
   "port": 8080,
   "hostInformationMap": {
     "localhost" : {
-      "docBase": "",
+      "docBase": "/Users/songjuyong/workspace/nhn-assignment/docBase/localhost",
       "applicationRootPackage": "com.nhn.assignment.application",
       "welcomeFile": "index.html",
       "errorPageFiles": {

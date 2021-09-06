@@ -48,4 +48,8 @@ public class ServerContext implements Context {
   public Config getConfig() {
     return config;
   }
+
+  public List<ApplicationContext> getApplicationContexts() {
+    return applicationContexts;
+  }
 }

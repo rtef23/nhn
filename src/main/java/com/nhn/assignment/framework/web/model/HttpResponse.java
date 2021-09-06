@@ -1,12 +1,16 @@
 package com.nhn.assignment.framework.web.model;
 
-import java.io.Writer;
+import java.io.OutputStream;
 
 public class HttpResponse implements Response {
 
-  private Writer writer;
+  private final OutputStream outputStream;
 
-  public Writer getWriter() {
-    return writer;
+  public HttpResponse(OutputStream outputStream) {
+    this.outputStream = outputStream;
+  }
+
+  public OutputStream getOutputStream() {
+    return outputStream;
   }
 }
