@@ -1,0 +1,15 @@
+{
+  "port": 8080,
+  "hostInformationMap": {
+    "localhost" : {
+      "docBase": "",
+      "applicationRootPackage": "com.nhn.assignment.application",
+      "welcomeFile": "index.html",
+      "errorPageFiles": {
+        "403": "",
+        "404": "",
+        "500": ""
+      }
+    }
+  }
+}
