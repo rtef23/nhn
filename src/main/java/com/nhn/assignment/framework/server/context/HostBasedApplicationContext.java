@@ -26,8 +26,7 @@ public class HostBasedApplicationContext implements ApplicationContext {
       HostInformation hostInformation) {
     this.host = host;
     this.hostInformation = hostInformation;
-    this.staticResourceServlet = new StaticResourceServlet(hostInformation.getDocBase(),
-        hostInformation.getWelcomeFile());
+    this.staticResourceServlet = new StaticResourceServlet(hostInformation.getDocBase());
   }
 
   @Override
@@ -68,5 +67,10 @@ public class HostBasedApplicationContext implements ApplicationContext {
         .map(servletMappingInfo -> servletMap.get(servletMappingInfo))
         .findFirst()
         .orElse(staticResourceServlet);
+  }
+
+  @Override
+  public Map<String, String> getErrorPageMap() {
+    return this.hostInformation.getErrorPageFiles();
   }
 }

@@ -4,11 +4,10 @@
     "localhost" : {
       "docBase": "/Users/songjuyong/workspace/nhn-assignment/docBase/localhost",
       "applicationRootPackage": "com.nhn.assignment.application",
-      "welcomeFile": "index.html",
       "errorPageFiles": {
-        "403": "",
-        "404": "",
-        "500": ""
+        "403": "/Users/songjuyong/workspace/nhn-assignment/docBase/localhost/errors/403.html",
+        "404": "/Users/songjuyong/workspace/nhn-assignment/docBase/localhost/errors/404.html",
+        "500": "/Users/songjuyong/workspace/nhn-assignment/docBase/localhost/errors/500.html"
       }
     }
   }

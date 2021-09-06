@@ -5,5 +5,5 @@ import com.nhn.assignment.framework.web.model.HttpResponse;
 
 public interface Servlet {
 
-  void service(HttpRequest request, HttpResponse response);
+  void service(HttpRequest request, HttpResponse response) throws Exception;
 }

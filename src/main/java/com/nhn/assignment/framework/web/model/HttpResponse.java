@@ -4,7 +4,7 @@ import java.io.OutputStream;
 
 public class HttpResponse implements Response {
 
-  private final OutputStream outputStream;
+  private OutputStream outputStream;
 
   public HttpResponse(OutputStream outputStream) {
     this.outputStream = outputStream;
