@@ -1,0 +1,14 @@
+{
+  "port": 9999,
+  "hostInformationMap": {
+    "localhost" : {
+      "docBase": "/Users/songjuyong/workspace/nhn-assignment/docBase/localhost",
+      "applicationRootPackage": "com.nhn.assignment.application",
+      "errorPageFiles": {
+        "403": "/Users/songjuyong/workspace/nhn-assignment/docBase/localhost/errors/403.html",
+        "404": "/Users/songjuyong/workspace/nhn-assignment/docBase/localhost/errors/404.html",
+        "500": "/Users/songjuyong/workspace/nhn-assignment/docBase/localhost/errors/500.html"
+      }
+    }
+  }
+}

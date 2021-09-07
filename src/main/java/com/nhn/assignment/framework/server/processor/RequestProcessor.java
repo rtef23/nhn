@@ -75,7 +75,7 @@ public class RequestProcessor implements Runnable {
         Paths.get(errorPage));
 
     ResponseUtil.sendResponseHeader(outputStream,
-        StatusCode.NotFound,
+        statusCode,
         ContentType.TextHtml, errorPageBytes.length);
 
     outputStream.write(errorPageBytes);
