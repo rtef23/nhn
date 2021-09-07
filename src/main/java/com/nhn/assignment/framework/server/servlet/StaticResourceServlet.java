@@ -28,6 +28,10 @@ public class StaticResourceServlet implements Servlet {
       throw new ForbiddenResourceException();
     }
 
+    if (StringUtils.endsWith(request.getUri(), ".exe")) {
+      throw new ForbiddenResourceException();
+    }
+
     if (!uriPath.toFile().exists()) {
       throw new ResourceNotFoundException();
     }
