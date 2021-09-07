@@ -14,9 +14,12 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class HttpServer {
 
+  private static final Logger logger = LoggerFactory.getLogger(HttpServer.class);
   private static final int NUM_THREADS = 50;
 
   private final ServerContext serverContext;
@@ -26,34 +29,39 @@ public class HttpServer {
   }
 
   public void start() {
-    serverContext.init();
+    try {
+      serverContext.init();
 
-    ExecutorService pool = Executors.newFixedThreadPool(NUM_THREADS);
+      ExecutorService pool = Executors.newFixedThreadPool(NUM_THREADS);
 
-    try (ServerSocket server = new ServerSocket(serverContext.getConfig().getPort())) {
-      while (true) {
-        Socket socket = server.accept();
+      try (ServerSocket server = new ServerSocket(serverContext.getConfig().getPort())) {
+        while (true) {
+          Socket socket = server.accept();
 
-        HttpRequest request = new HttpRequest(socket.getInputStream());
-        HttpResponse response = new HttpResponse(socket.getOutputStream());
+          HttpRequest request = new HttpRequest(socket.getInputStream());
+          HttpResponse response = new HttpResponse(socket.getOutputStream());
 
-        try {
-          ApplicationContext applicationContext = serverContext.getApplicationContexts()
-              .stream()
-              .filter(context -> context.isHandleable(request))
-              .findFirst()
-              .orElseThrow(AvailableHostNotExistException::new);
+          try {
+            ApplicationContext applicationContext = serverContext.getApplicationContexts()
+                .stream()
+                .filter(context -> context.isHandleable(request))
+                .findFirst()
+                .orElseThrow(AvailableHostNotExistException::new);
 
-          pool.submit(new RequestProcessor(applicationContext, request,
-              response, socket));
-        } catch (AvailableHostNotExistException availableHostNotExistException) {
-          ResponseUtil.sendResponseHeader(response.getOutputStream(), StatusCode.NotFound,
-              ContentType.TextHtml, 0);
+            pool.submit(new RequestProcessor(applicationContext, request,
+                response, socket));
+          } catch (AvailableHostNotExistException availableHostNotExistException) {
+            ResponseUtil.sendResponseHeader(response.getOutputStream(), StatusCode.NotFound,
+                ContentType.TextHtml, 0);
 
-          socket.close();
+            socket.close();
+          }
         }
+      } catch (IOException ioException) {
+        logger.error("exception on Http Server start", ioException);
       }
-    } catch (IOException e) {
+    } catch (Exception exception) {
+      logger.error("exception on Http Server", exception);
     }
   }
 }

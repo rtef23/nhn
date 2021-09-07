@@ -14,8 +14,12 @@ import java.io.OutputStream;
 import java.net.Socket;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class RequestProcessor implements Runnable {
+
+  private static final Logger logger = LoggerFactory.getLogger(RequestProcessor.class);
 
   private static final String NOT_FOUND_ERROR_PAGE = "404";
   private static final String FORBIDDEN_ERROR_PAGE = "403";
@@ -49,15 +53,18 @@ public class RequestProcessor implements Runnable {
         sendErrorPage(response.getOutputStream(), StatusCode.NotFound,
             applicationContext.getErrorPageMap().get(NOT_FOUND_ERROR_PAGE));
       } catch (Exception exception) {
+        logger.error("exception on Request Processor", exception);
+
         sendErrorPage(response.getOutputStream(), StatusCode.InternalServerError,
             applicationContext.getErrorPageMap().get(INTERNAL_SERVER_ERROR_PAGE));
       }
     } catch (IOException ioException) {
-
+      logger.error("exception on Request Processor", ioException);
     } finally {
       try {
         socket.close();
-      } catch (IOException e) {
+      } catch (IOException ioException) {
+        logger.error("exception on Request Processor", ioException);
       }
     }
   }
